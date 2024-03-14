@@ -11,3 +11,34 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App-header{
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100px;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.nav-links{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
+
+.logo{
+ width: 80px;
+ height: 60px;
+}
+.buttonsNav{
+  width: 600px;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+}
+
+.button{
+  background-color: white;
+}

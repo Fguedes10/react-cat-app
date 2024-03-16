@@ -1,16 +1,10 @@
 import {React} from "react";
+import HomeContainer from "../../components/homeContainer";
 
 const Home = () => {
 
     return (
-        <div>
-            <div>
-            <h1>WELCOME CAT LOVER</h1>
-            </div>
-            <div>
-                <img src="images/catimagehome.jpeg" alt="a cat image" />
-            </div>
-        </div>
+        <HomeContainer image="images/catimagehome.jpeg" title="WELCOME CAT LOVER" />
     );
 };
 export default Home

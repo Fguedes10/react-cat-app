@@ -13,6 +13,7 @@ function App() {
     <div >
       <img className="logo" src="images/logo.png" alt="a cat" />
     </div>
+    <div className="headline">Cats around the world!</div>
     <NavButtons/>
   </nav>
 </header>

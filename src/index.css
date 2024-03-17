@@ -7,7 +7,9 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: url(./images/logo.png), auto;
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -28,6 +30,7 @@ code {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
@@ -44,7 +47,7 @@ code {
 
 .divHome {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   max-height: 100vh;
 }
@@ -66,25 +69,33 @@ code {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 .intro {
+  display: flex;
   flex-direction: column;
+  text-align: center;
+  width: 100%;
+  height: 30vh;
+  justify-content: space-evenly;
+  font-size: 20px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .cats {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   gap: 20px;
   justify-content: center;
 }
 
 .catContainer {
   position: relative;
-  cursor: pointer;
 }
 
 #catImage {
   display: block;
   margin: auto;
   object-fit: contain;
+
 }
 
 .moreInfo {
@@ -104,6 +115,7 @@ code {
   transition: opacity 0.3s ease;
   border-radius: 8px;
   text-align: center;
+
 }
 .imageContainer {
   width: 500px;
@@ -117,4 +129,16 @@ code {
 
 .catContainer:hover .moreInfo {
   opacity: 1;
+}
+
+
+.homeTitleAndImage{
+  display: flex;
+  flex-direction: row;
+}
+
+.headline{
+  color: black;
+  font-size: 30px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }

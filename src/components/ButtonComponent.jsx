@@ -1,8 +1,12 @@
 import {Button} from '@mui/material';
+import { useNavigate } from "react-router-dom";
+
 
 
 const ButtonComponent = ({href, startIcon, buttonText}) => {
-    return (
+const navigate = useNavigate();
+
+return (
         <Button
         sx={{
             backgroundColor:"white", 
@@ -11,8 +15,8 @@ const ButtonComponent = ({href, startIcon, buttonText}) => {
                 color: '#94855a',
             },  }} 
             variant='contained'
-            href={href}
             startIcon={startIcon}
+            onClick={() => navigate(href)} 
         >
             {buttonText}
         </Button>

@@ -10,15 +10,14 @@ const UserNameInput = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleNameSubmit(e.target.name.value);
-    console.log("name: " + e.target.name.value);
-    console.log("username: " + userName);
+
 
     navigate("/home")
     };
 
-  // if (userName) {
-  //   return null; 
-  // }
+  if (userName) {
+    return null; 
+  }
 
   return (
     <div className="login">

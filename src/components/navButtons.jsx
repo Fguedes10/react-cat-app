@@ -8,9 +8,13 @@ import UserNameContext from '../components/UserNameContext';
 const NavButtons = () => {
     const { userName } = useContext(UserNameContext);
 
-    // if (!userName || userName === "") {
-    //     return null;
-    // }
+    if (!userName || userName === "") {
+        return null;
+    }
+
+    
+
+
 
     return (
         <div className="buttonsNav">

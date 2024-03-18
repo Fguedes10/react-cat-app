@@ -33,10 +33,9 @@ const CatPage = () => {
 
   async function getBreedImages(breedName) {
     const images = await theCatAPI.images.searchImages({
-      limit: 10,
+      limit: 30,
       breeds: [Breed[breedName]],
     });
-    console.log(images);
     return images;
   }
 
@@ -52,7 +51,7 @@ const CatPage = () => {
   async function favouriteImage(id) {
     const favourite = await theCatAPI.favourites.addFavourite(
       id,
-      "USER_2"
+      userName,
     );
     fetchFavorites();
     return favourite;

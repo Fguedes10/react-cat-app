@@ -51,7 +51,6 @@ async function fetchfavoriteImages() {
       return (
         <div>
           <div className="favoritesTitle">
-            {console.log(userName)}
             <h1>{userName} favorites</h1>
           </div>
           <div align="center">

@@ -1,7 +1,8 @@
-import { Container, Box, Typography } from "@mui/material";
+import {Box, Typography } from "@mui/material";
 
 
 const HomeContainer = ({image, title}) => {
+
     return (
        <div className="divHome">
         <div className="homeTitleAndImage">

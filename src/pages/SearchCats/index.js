@@ -1,6 +1,7 @@
 import { TheCatAPI } from "@thatapicompany/thecatapi";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 const SearchCats = () => {
   const [cats, setCats] = useState([]);
@@ -12,8 +13,8 @@ const SearchCats = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getImagesWithBreeds().then((cats) => {
-      setCats(cats);
+    getImagesWithBreeds().then((newCats) => {
+      setCats((prevCats) => [...prevCats, ...newCats]);
       setIsLoading(false);
     }).catch(error => {
       setIsLoading(false);
@@ -22,60 +23,71 @@ const SearchCats = () => {
   }, [page]); // Reload cats when page changes
 
   async function getImagesWithBreeds() {
-    const limit = 8;
-    const offset = (page - 1) * limit;
+    const limit = 10;
     const images = await theCatAPI.images.searchImages({
       limit,
       page,
       hasBreeds: true,
     });
-    return images;
-  }
+    const fetchedCatIds = new Set(cats.map(cat => cat.id));
+    const newCats = images.filter(cat => !fetchedCatIds.has(cat.id)); 
+    return newCats;
+   }
 
-  const uniqueBreeds = Array.from(new Set(cats.map(cat => cat.breeds[0].name))); // Remove duplicate breeds
+  const uniqueBreeds = Array.from(new Set(cats.map((cat) => cat.breeds[0].name)));
 
   const nextPage = () => {
-    setPage(prevPage => prevPage + 1);
+    setPage((prevPage) => prevPage + 1);
   };
 
   const prevPage = () => {
-    setPage(prevPage => (prevPage > 1 ? prevPage - 1 : 1));
+    setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
   };
 
   return (
     <div>
-        <div className="cats">
-      {isLoading && <p>Loading cats...</p>}
-      {error && <p>Error: {error.message}</p>}
-      {!isLoading && !error && uniqueBreeds.map((breedName, index) => (
-        <div className="catContainer" key={index}>
-          <h3 align="center">Breed: {breedName}</h3>
-          {cats.filter(cat => cat.breeds[0].name === breedName).map((cat, index) => (
-            <div key={index}>
-              <div className="imageContainer">
-                <img
-                  width={500}
-                  height={400}
-                  id={`catImage${index}`}
-                  src={cat.url}
-                  alt="a cat"
-                  loading="lazy"
-                />
-              </div>
-              <div className="moreInfo">
-                <p>Description: {cat.breeds[0].description}</p>
-                <p>Temperament: {cat.breeds[0].temperament}</p>
-                <p>Intelligence: {cat.breeds[0].intelligence}</p>
-                <p>Origin: {cat.breeds[0].origin}</p>
-                <p>Life Span: {cat.breeds[0].life_span}</p>
-              </div>
+      <div className="cats">
+        {isLoading && <p>Loading cats...</p>}
+        {error && <p>Error: {error.message}</p>}
+        {!isLoading &&
+          !error &&
+          uniqueBreeds.map((breedName, index) => (
+            <div className="catContainer" key={index}>
+              <h3 align="center">Breed: {breedName}</h3>
+              {cats
+                .filter((cat) => cat.breeds[0].name === breedName)
+                .map((cat, index) => (
+                  <div key={index}>
+                    <div className="imageContainer">
+                      <img
+                        width={500}
+                        height={400}
+                        id={`catImage${index}`}
+                        src={cat.url}
+                        alt="a cat"
+                        loading="lazy"
+                      />
+                    </div>
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to={`/catpage/${breedName.toUpperCase().replace(/ /g, "_")}`}
+                      className="moreInfo"
+                    >
+                      <p>Description: {cat.breeds[0].description}</p>
+                      <p>Temperament: {cat.breeds[0].temperament}</p>
+                      <p>Intelligence: {cat.breeds[0].intelligence}</p>
+                      <p>Origin: {cat.breeds[0].origin}</p>
+                      <p>Life Span: {cat.breeds[0].life_span}</p>
+                    </Link>
+                  </div>
+                ))}
             </div>
           ))}
-        </div>
-      ))}
       </div>
-      <div align="center">
-        <Button onClick={prevPage} disabled={page === 1}>Previous Page</Button>
+      <div className="pageNav" align="center">
+        <Button onClick={prevPage} disabled={page === 1}>
+          Previous Page
+        </Button>
         <Button onClick={nextPage}>Next Page</Button>
       </div>
     </div>

@@ -8,18 +8,19 @@ const SearchCats = () => {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const theCatAPI = new TheCatAPI(process.env.REACT_APP_API_KEY);
 
   useEffect(() => {
     setIsLoading(true);
-    getImagesWithBreeds().then((newCats) => {
-      setCats((prevCats) => [...prevCats, ...newCats]);
-      setIsLoading(false);
-    }).catch(error => {
-      setIsLoading(false);
-      setError("Something went wrong. Please try again later.");
-    });
+    getImagesWithBreeds()
+      .then((newCats) => {
+        setCats((prevCats) => [...prevCats, ...newCats]);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setError("Something went wrong. Please try again later.");
+      });
   }, [page]); // Reload cats when page changes
 
   async function getImagesWithBreeds() {
@@ -29,12 +30,13 @@ const SearchCats = () => {
       page,
       hasBreeds: true,
     });
-    const fetchedCatIds = new Set(cats.map(cat => cat.id));
-    const newCats = images.filter(cat => !fetchedCatIds.has(cat.id)); 
-    return newCats;
-   }
 
-  const uniqueBreeds = Array.from(new Set(cats.map((cat) => cat.breeds[0].name)));
+    return images;
+  }
+
+  const uniqueBreeds = Array.from(
+    new Set(cats.map((cat) => cat.breeds[0].name))
+  );
 
   const nextPage = () => {
     setPage((prevPage) => prevPage + 1);
@@ -70,7 +72,9 @@ const SearchCats = () => {
                     </div>
                     <Link
                       style={{ textDecoration: "none" }}
-                      to={`/catpage/${breedName.toUpperCase().replace(/ /g, "_")}`}
+                      to={`/catpage/${breedName
+                        .toUpperCase()
+                        .replace(/ /g, "_")}`}
                       className="moreInfo"
                     >
                       <p>Description: {cat.breeds[0].description}</p>
@@ -85,10 +89,16 @@ const SearchCats = () => {
           ))}
       </div>
       <div className="pageNav" align="center">
-        <Button onClick={prevPage} disabled={page === 1}>
+        <Button
+          sx={{ color: "#3c009d" }}
+          onClick={prevPage}
+          disabled={page === 1}
+        >
           Previous Page
         </Button>
-        <Button onClick={nextPage}>Next Page</Button>
+        <Button sx={{ color: "#3c009d" }} onClick={nextPage}>
+          Next Page
+        </Button>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import UserNameInput from "./components/UserNameInput.jsx";
 import UserNameContext from "./components/UserNameContext.jsx";
 
 function App() {
-  const [userName, setUserName] = useState("tiago");
+  const [userName, setUserName] = useState();
 
   const handleNameSubmit = (name) => {
     setUserName(name);
@@ -35,7 +35,7 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </BrowserRouter>
-    </UserNameContext.Provider >
+    </UserNameContext.Provider>
   );
 }
 

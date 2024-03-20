@@ -1,16 +1,22 @@
 import { TheCatAPI } from "@thatapicompany/thecatapi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import  UserNameContext  from "../../components/UserNameContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const SearchCats = () => {
   const [cats, setCats] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { userName } = useContext(UserNameContext);
   const theCatAPI = new TheCatAPI(process.env.REACT_APP_API_KEY);
 
   useEffect(() => {
+    if (!userName || userName === "") {
+      navigate("/");
+  }
     setIsLoading(true);
     getImagesWithBreeds()
       .then((newCats) => {

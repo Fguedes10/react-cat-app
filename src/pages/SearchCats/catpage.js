@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import { Breed, TheCatAPI } from "@thatapicompany/thecatapi";
 import { useParams } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useNavigate } from "react-router-dom";
 import UserNameContext from "../../components/UserNameContext";
 
 const CatPage = () => {
@@ -12,9 +13,16 @@ const CatPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const navigate = useNavigate();
   const { userName } = useContext(UserNameContext);
 
+
+
+
   useEffect(() => {
+    if (!userName || userName === "") {
+      navigate("/");
+  }
     fetchBreedImages();
     fetchFavorites();
   }, [breedName]);

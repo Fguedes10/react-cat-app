@@ -35,7 +35,7 @@ const UserNameInput = () => {
             <Input
               color="success"
               name="name"
-              placeholder="Input your name please"
+              placeholder="Enter your name please"
               size="lg"
               variant="solid"
               required

@@ -3,18 +3,20 @@ import Button from "@mui/material/Button";
 import { TheCatAPI } from "@thatapicompany/thecatapi";
 import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 import UserNameContext from "../../components/UserNameContext";
+import { useNavigate } from "react-router-dom";
 
 const Favorites = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const { userName } = useContext(UserNameContext);
+  const navigate = useNavigate();
   const theCatAPI = new TheCatAPI(process.env.REACT_APP_API_KEY);
 
   useEffect(() => {
-    if (!userName) {
-      return;
-    }
+    if (!userName || userName === "") {
+      navigate("/");
+  }
     fetchfavoriteImages();
   }, []);
 
